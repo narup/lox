@@ -7,11 +7,12 @@ pub fn prepare_lox(allocator: Allocator, stdout: anytype) !void {
     var chunk = try Chunk.init(allocator);
     defer chunk.deinit();
 
-    try chunk.write_constant(1.2);
-    try chunk.write_constant(45.69);
-    try chunk.write_constant(20);
-    try chunk.write_constant(120.20);
-    try chunk.write_op(.op_return);
+    try chunk.write_op(.op_add, 120);
+    try chunk.write_constant(1.2, 120);
+    try chunk.write_constant(45.69, 120);
+    try chunk.write_constant(20, 123);
+    try chunk.write_op(.op_return, 124);
+    try chunk.write_constant(120.20, 124);
 
     try chunk.disassemble("test chunk", stdout);
 }
